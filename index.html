@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>윤서온 — 쓰고, 만듭니다</title>
-<meta name="description" content="에세이스트이자 작은 웹 도구를 만드는 윤서온의 공식 페이지. 책, 프로젝트, 소개와 취향, 그리고 시계열 지표 대시보드 별자리를 한곳에.">
+<title>최관우 — 쓰고, 만듭니다</title>
+<meta name="description" content="에세이스트이자 작은 웹 도구를 만드는 최관우의 공식 페이지. 책, 프로젝트, 소개와 취향, 그리고 시계열 지표 대시보드 별자리를 한곳에.">
 <meta name="theme-color" content="#070C1C">
-<meta property="og:title" content="윤서온 — 쓰고, 만듭니다">
+<meta property="og:title" content="최관우 — 쓰고, 만듭니다">
 <meta property="og:description" content="책, 프로젝트, 소개와 취향, 그리고 지표 대시보드 별자리.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -336,7 +336,7 @@ td.up{color:var(--up)}td.down{color:var(--down)}
 
 <header class="top">
   <div class="wrap bar">
-    <a class="brand" href="#top"><i aria-hidden="true"></i>윤서온</a>
+    <a class="brand" href="#top"><i aria-hidden="true"></i>최관우</a>
     <span class="crumb"><span class="sep">/</span><b><svg class="mark" aria-hidden="true"><use href="#i-mark"/></svg>별자리</b></span>
     <nav class="home-nav" aria-label="홈 섹션">
       <a href="#now">지금</a>
@@ -363,7 +363,7 @@ td.up{color:var(--up)}td.down{color:var(--down)}
       <circle cx="246" cy="300" r="2"/><circle cx="262" cy="42" r="2"/>
     </svg>
     <div>
-      <h1>윤서온</h1>
+      <h1>최관우</h1>
       <p class="tag">천천히 읽고, 작게 만듭니다.</p>
       <p class="role">에세이스트이자 웹 도구를 만드는 사람</p>
       <ul class="links" id="links"></ul>
@@ -418,7 +418,7 @@ td.up{color:var(--up)}td.down{color:var(--down)}
   </section>
 
   <footer>
-    <span>© 윤서온</span>
+    <span>© 최관우</span>
     <span><a href="#" id="link-privacy">개인정보처리방침</a> &nbsp;|&nbsp; <a href="#" id="link-terms">이용약관</a></span>
   </footer>
 </div>
@@ -565,7 +565,7 @@ const SITE = {
     { label: "Instagram", href: "https://www.instagram.com/", icon: "camera" },
     { label: "이메일", href: "mailto:[이메일 주소]", icon: "mail" }
   ],
-  contact: "윤서온 / [이메일 주소]",
+  contact: "최관우 / [이메일 주소]",
   stores: [
     { name: "교보문고", href: "https://www.kyobobook.co.kr/" },
     { name: "예스24", href: "https://www.yes24.com/" },
@@ -620,7 +620,7 @@ function showView(name) {
   if (view === "home") homeScroll = scrollY;
   VIEWS[view].hidden = true; VIEWS[name].hidden = false;
   document.body.dataset.view = name; view = name;
-  document.title = name === "dash" ? "별자리 — 윤서온" : "윤서온 — 쓰고, 만듭니다";
+  document.title = name === "dash" ? "별자리 — 최관우" : "최관우 — 쓰고, 만듭니다";
   if (!reduceMotion) { const el = VIEWS[name]; el.classList.remove("enter"); void el.offsetWidth; el.classList.add("enter"); }
   return true;
 }
@@ -645,7 +645,7 @@ function route() {
 addEventListener("hashchange", route);
 
 /* ═══════════ 4. 홈: 정적 콘텐츠 렌더 ═══════════ */
-const coverHTML = (b) => `<div class="cover" style="background:var(--${b.cover})"><div class="ct">${esc(b.title)}</div><div class="ca">윤서온, ${b.year}</div></div>`;
+const coverHTML = (b) => `<div class="cover" style="background:var(--${b.cover})"><div class="ct">${esc(b.title)}</div><div class="ca">최관우, ${b.year}</div></div>`;
 $("#links").innerHTML = SITE.links.map(l => `<li><a href="${esc(l.href)}" target="_blank" rel="noopener">${ICONS[l.icon]}<span>${esc(l.label)}</span></a></li>`).join("");
 {
   const latestIdx = SITE.books.reduce((best, b, i) => b.year > SITE.books[best].year ? i : best, 0), b = SITE.books[latestIdx];
