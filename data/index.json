@@ -1,0 +1,54 @@
+{
+ "updated": "2026-09-28T01:32:36+00:00",
+ "indicators": [
+  {
+   "id": "usdkrw",
+   "name": "원/달러",
+   "unit": "원",
+   "group": "fx",
+   "source": "Frankfurter (ECB)"
+  },
+  {
+   "id": "jpykrw",
+   "name": "원/100엔",
+   "unit": "원",
+   "group": "fx",
+   "source": "Frankfurter (ECB)"
+  },
+  {
+   "id": "eurkrw",
+   "name": "원/유로",
+   "unit": "원",
+   "group": "fx",
+   "source": "Frankfurter (ECB)"
+  },
+  {
+   "id": "btckrw",
+   "name": "비트코인",
+   "unit": "원",
+   "group": "coin",
+   "source": "CoinGecko"
+  },
+  {
+   "id": "ethkrw",
+   "name": "이더리움",
+   "unit": "원",
+   "group": "coin",
+   "source": "CoinGecko"
+  },
+  {
+   "id": "seoul_temp",
+   "name": "서울 일평균 기온",
+   "unit": "°C",
+   "group": "weather",
+   "source": "Open-Meteo 아카이브"
+  },
+  {
+   "id": "seoul_rain",
+   "name": "서울 일강수량",
+   "unit": "mm",
+   "group": "weather",
+   "source": "Open-Meteo 아카이브"
+  }
+ ]
+}
