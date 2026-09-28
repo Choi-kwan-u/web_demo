@@ -47,12 +47,6 @@ collector/fetch.py              수집기 (파이썬 표준 라이브러리만)
 
 이후에는 6시간마다 알아서 갱신된다. 주기는 `collect.yml`의 cron 한 줄.
 
-## 로컬에서 확인
-
-- `index.html` 더블클릭 → 저장본은 못 읽고(file:// 제약) API 직접 호출로 뜬다.
-- 저장본까지 보려면 폴더에서 `python -m http.server 8000` 후 `http://localhost:8000`.
-- 수집기만 돌려보기: `python collector/fetch.py` (표준 라이브러리만 씀).
-
 ## 지표 추가
 
 `collector/fetch.py`의 `REGISTRY`와 `index.html`의 `INDICATORS`에 같은 `id`로 항목을 넣고, 해당 그룹의 fetch 함수가 그 id를 반환하게 하면 끝. 새 API를 붙일 때는 그룹 하나(`fetch_<group>` + `LIVE.<group>`)를 추가한다.
