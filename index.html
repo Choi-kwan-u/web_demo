@@ -138,12 +138,11 @@ body[data-view="dash"] .bar .back{display:inline-flex}
 /* ───────── 지금: 실시간 위젯 ───────── */
 .notice{background:rgba(232,196,118,.09);border:1px solid rgba(232,196,118,.34);border-radius:10px;padding:12px 16px;margin:-6px 0 18px;font-size:14.5px;line-height:1.6;color:var(--ink)}
 .notice code{background:var(--surface-2);padding:1px 6px;border-radius:5px;font-size:12.5px}
-.widgets{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.widgets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 @media (max-width:980px){.widgets{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.widgets{grid-template-columns:1fr}}
 .w{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-height:172px;box-shadow:var(--shadow);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:box-shadow .35s,border-color .35s}
-.w.wide{grid-column:span 2}
-@media (max-width:560px){.w.wide{grid-column:auto}}
+.w.wide{grid-column:1/-1}
 .w.flash{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft),0 0 28px rgba(157,187,255,.18)}
 .w-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .w-head h3{font-size:14px;font-weight:600;color:var(--ink-2)}
@@ -167,12 +166,6 @@ body[data-view="dash"] .bar .back{display:inline-flex}
 .news a{color:var(--ink);text-decoration:none}
 .news a:hover{text-decoration:underline;color:var(--accent)}
 .news .m{color:var(--ink-3);font-size:12px;margin-left:6px;white-space:nowrap}
-.repos{display:flex;flex-direction:column;gap:6px;font-size:14.5px}
-.repos a{color:var(--ink);text-decoration:none;font-weight:500}
-.repos a:hover{text-decoration:underline;color:var(--accent)}
-.repos .m{color:var(--ink-3);font-size:13px}
-.gh-stats{display:flex;gap:18px}
-.gh-stats .big{font-size:26px}
 .w .err{color:var(--ink-3);font-size:14px;margin:0}
 
 /* ───────── 책장 ───────── */
@@ -386,7 +379,6 @@ td.up{color:var(--up)}td.down{color:var(--down)}
       <article class="w" id="w-fx"><div class="w-head"><h3>환율</h3><span class="pill loading">불러오는 중</span></div><div class="body"></div><div class="src">출처 <a href="https://frankfurter.dev/" target="_blank" rel="noopener">Frankfurter</a> (유럽중앙은행 고시)</div></article>
       <article class="w" id="w-weather"><div class="w-head"><h3>서울 날씨</h3><span class="pill loading">불러오는 중</span></div><div class="body"></div><div class="src">출처 <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></div></article>
       <article class="w" id="w-coin"><div class="w-head"><h3>코인</h3><span class="pill loading">불러오는 중</span></div><div class="body"></div><div class="src">출처 <a href="https://www.coingecko.com/" target="_blank" rel="noopener">CoinGecko</a></div></article>
-      <article class="w" id="w-gh"><div class="w-head"><h3>GitHub</h3><span class="pill loading">불러오는 중</span></div><div class="body"></div><div class="src">출처 <a href="https://docs.github.com/rest" target="_blank" rel="noopener">GitHub REST API</a></div></article>
       <article class="w wide" id="w-news"><div class="w-head"><h3>개발자 뉴스</h3><span class="pill loading">불러오는 중</span></div><div class="body"></div><div class="src">출처 <a href="https://news.ycombinator.com/" target="_blank" rel="noopener">Hacker News</a> 상위 글</div></article>
     </div>
   </section>
@@ -558,7 +550,6 @@ function sparkline(points, n = 40) {
 
 /* ═══════════ 1. 사이트 콘텐츠 (나중엔 fetch('/api/site.json')로 대체) ═══════════ */
 const SITE = {
-  github: "Choi-kwan-u",
   links: [
     { label: "X", href: "https://x.com/", icon: "x" },
     { label: "Threads", href: "https://www.threads.com/", icon: "at" },
@@ -685,8 +676,7 @@ const SAMPLE = {
   fx: { date: "샘플", usd: 1350, jpy100: 900, eur: 1480 },
   weather: { temp: 21, hi: 25, lo: 17, code: 2, wind: 9, hum: 55 },
   coin: { btc: 100000000, btcChg: 1.2, eth: 4000000, ethChg: -0.8 },
-  news: [{ title: "샘플 제목 — 실제 API가 연결되면 이 자리에 오늘의 상위 글이 옵니다", score: 0, by: "sample", url: "https://news.ycombinator.com/" }],
-  gh: null
+  news: [{ title: "샘플 제목 — 실제 API가 연결되면 이 자리에 오늘의 상위 글이 옵니다", score: 0, by: "sample", url: "https://news.ycombinator.com/" }]
 };
 const WIDGETS = {
   fx: {
@@ -715,14 +705,6 @@ const WIDGETS = {
       return `<div class="big">${fmt(v.btc / 1e4, 0)}<small>만원 / BTC</small>${chg(v.btcChg)}</div><div class="rows"><div><span class="k">ETH</span><span class="v">${fmt(v.eth, 0)}원${chg(v.ethChg)}</span></div><div><span class="k">기준</span><span class="v">24시간 변동</span></div></div>`;
     }
   },
-  gh: {
-    async load() {
-      const u = SITE.github;
-      const [me, repos] = await Promise.all([getJSON(`https://api.github.com/users/${u}`, 7000), getJSON(`https://api.github.com/users/${u}/repos?sort=pushed&per_page=3`, 7000)]);
-      return { login: me.login, url: me.html_url, repos: me.public_repos, followers: me.followers, recent: repos.map(r => ({ name: r.name, url: r.html_url, lang: r.language, stars: r.stargazers_count, pushed: r.pushed_at.slice(0, 10) })) };
-    },
-    render(v) { return `<div class="gh-stats"><div><div class="big">${v.repos}<small>저장소</small></div></div><div><div class="big">${v.followers}<small>팔로워</small></div></div></div><div class="repos">${v.recent.map(r => `<div><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.name)}</a> <span class="m">${esc(r.lang || "")} ${r.stars ? "★" + r.stars : ""} ${r.pushed}</span></div>`).join("")}</div>`; }
-  },
   news: {
     async load() {
       const ids = (await getJSON("https://hacker-news.firebaseio.com/v0/topstories.json", 7000)).slice(0, 5);
@@ -737,8 +719,7 @@ async function runWidget(key) {
   pill.className = "pill loading"; pill.textContent = "불러오는 중";
   try { const v = await WIDGETS[key].load(); body.innerHTML = WIDGETS[key].render(v); pill.className = "pill live"; pill.textContent = "실시간 " + hhmm(); return true; }
   catch {
-    if (SAMPLE[key]) { body.innerHTML = WIDGETS[key].render(SAMPLE[key]); pill.className = "pill sample"; pill.textContent = "샘플"; }
-    else { body.innerHTML = `<p class="err">이 환경에서는 불러올 수 없어요. 내 컴퓨터나 GitHub Pages에서 열면 <strong>${esc(SITE.github)}</strong>의 저장소가 표시됩니다.</p>`; pill.className = "pill sample"; pill.textContent = "연결 안 됨"; }
+    body.innerHTML = WIDGETS[key].render(SAMPLE[key]); pill.className = "pill sample"; pill.textContent = "샘플";
     return false;
   }
 }
